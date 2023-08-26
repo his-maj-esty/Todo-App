@@ -2,7 +2,8 @@ import { addTodo } from "../api"
 
 export function AddTodo()
 {return (
-    <div className="p-4 border border-gray-300 rounded-md shadow-md">
+    <div className="flex flex-col max-w-xl border 
+    rounded-md p-4 mb-4 w-full">
       <h1 className="text-2xl font-semibold mb-4">Add a New Todo</h1>
       <div className="mb-4">
         <label htmlFor="title" className="block text-gray-700 font-semibold mb-1">

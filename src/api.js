@@ -1,34 +1,50 @@
+import axios from "axios";
+
 export async function updateTodo(id){
-    await fetch("http://localhost:3000/todos/"+id, {
-      "method":"PUT",
-      "body" : JSON.stringify({
-        "title" : document.getElementById("title").value,
-        "description" : document.getElementById("description").value
-      }),
-      "headers" : {
-        "Content-Type":"application/json"
+  try{
+      const res = await axios.put("http://localhost:3000/todos/"+id, {
+          title : document.getElementById("title").value,
+          description : document.getElementById("description").value
+      },{
+        headers:{
+          "Authorization" : "Bearer " + localStorage.token
+        }
+      });
+      alert(res.data.message);
+    }
+  catch(err){
+    console.log(err);
+  }
+}
+export  async function deleteTodo(id){
+  try{
+    const res = await axios.delete("http://localhost:3000/todos/"+id,{
+      headers:{
+        "Authorization" : "Bearer " + localStorage.token
       }
-    }).then((response) => response.json())
-    .then((data)=>data)
-    .catch((err) =>console.log(err));
+    });
+    alert(res.data.message);
   }
-  export  async function deleteTodo(id){
-    await fetch("http://localhost:3000/todos/"+id, {
-      "method":"DELETE"
-    }).then((response) => response.json())
-    .then((data)=>console.log(data));
+  catch(err){
+    console.log(err);
   }
+}
+
   
-  export  async function addTodo(){
-    await fetch("http://localhost:3000/todos", {
-      "method":"POST",
-      "body" : JSON.stringify({
-        "title" : document.getElementById("titleAdd").value,
-        "description" : document.getElementById("descriptionAdd").value
-      }),
-      "headers" : {
-        "Content-Type":"application/json"
+export  async function addTodo(){
+  try{
+    const res = await axios.post("http://localhost:3000/todos/addtodo", {
+      title : document.getElementById("titleAdd").value,
+      description : document.getElementById("descriptionAdd").value
+    },{
+      headers:{
+        "Authorization" : "Bearer " + localStorage.token
       }
-    }).then((response) => response.json())
-    .then((data)=>console.log(data));
+    });
+    alert(res.data.message);
   }
+  catch(err){
+    console.log(err);
+  }
+}
+

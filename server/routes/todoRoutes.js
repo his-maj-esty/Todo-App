@@ -24,13 +24,13 @@ router.post("/signup", async(req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     try{
-    const token = jwt.sign({username: username, password: password}, "SEcret", {expiresIn:"1h"});
-    const newUser = new Users({
-        username: username,
-        password: password
-    });
-    await newUser.save();
-    res.send({message: "signed up successfully", token: token});
+        const token = jwt.sign({username: username, password: password}, "SEcret", {expiresIn:"1h"});
+        const newUser = new Users({
+            username: username,
+            password: password
+        });
+        await newUser.save();
+        res.send({message: "signed up successfully", token: token});
     }
     catch(err){
         console.log(err);
@@ -43,7 +43,7 @@ router.get("/alltodos", Authentication,async (req, res) => {
     const userId = req.user._id;
     const user = await Users.findById(userId).populate("todos");
     const todos = user.todos;
-    res.status(200).json(todos);
+    res.status(200).json({todos: todos});
 });
 
 router.get("/:id",Authentication, todoAccess,async (req, res) => {
@@ -57,7 +57,7 @@ router.get("/:id",Authentication, todoAccess,async (req, res) => {
     }
 });
 
-router.post("/addtodo",Authentication,  async (req, res) => {
+router.post("/addtodo", Authentication,  async (req, res) => {
     const todo = new Todos({
         title: req.body.title,
         description: req.body.description
@@ -65,7 +65,7 @@ router.post("/addtodo",Authentication,  async (req, res) => {
     try{
         await todo.save();
         await Users.updateOne({_id: req.user._id}, {$push:{todos:todo}});
-        res.json({id : todo.id });
+        res.json({message: "todo added successfully",id : todo.id });
     }
     catch(err){
         console.log(err);
@@ -76,10 +76,10 @@ router.put("/:id",Authentication, todoAccess,async (req, res)=>{
     const id = req.params.id;
     const todo = await Todos.findOneAndUpdate({_id : id}, {title:req.body.title, description: req.body.description}, {returnDocument:"after"});
     if(todo){
-        res.status(200).json(todo);
+        res.status(200).send({message: "todo updated successfully", updatedTodo : todo});
     }
     else{
-        res.status(404).end();
+        res.status(404).send({message: "todo not found"});
     }
 });
 
@@ -88,7 +88,7 @@ router.delete("/:id",Authentication, todoAccess,async (req, res) => {
     const todo = await Todos.findOne({_id : id});
     if(todo){
         await Todos.findOneAndDelete({_id : id});
-        res.status(200).end();
+        res.status(200).send({message: "todo deleted"});
     }
     else{
         res.status(404).send("todo not found");
