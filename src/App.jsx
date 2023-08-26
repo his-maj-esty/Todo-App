@@ -11,16 +11,19 @@ import { Todos } from './Todo';
 
 
 function App() {
+  const [username,setUsername] = useState("");
 return(
+  <>
   <Router>
-   <Routes>
-    <Route path="/" element={<LandingPage/>}></Route>
-    <Route path="/login" element={<Login/>}></Route>
-    <Route path='/signup' element={<Signup></Signup>}></Route>
-    <Route path='/alltodos' element={<Todos/>}></Route>
-
-   </Routes>
-   </Router>
+    <AppBar username={username} setUsername={setUsername}></AppBar>
+    <Routes>
+      <Route path="/" element={<LandingPage />}></Route>
+      <Route path="/login" element={<Login setUsername={setUsername}/>}></Route>
+      <Route path='/signup' element={<Signup setUsername={setUsername}></Signup>}></Route>
+      <Route path='/alltodos' element={<Todos/>}></Route>
+    </Routes>
+  </Router>
+  </>
   );
 }
 

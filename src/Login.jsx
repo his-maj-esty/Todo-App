@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export function Login(){
+export function Login({setUsername}){
+    const navigate = useNavigate();
     return(
         <div className="h-screen w-screen flex justify-center items-center">
             <div className="flex flex-col h-52 w-80 justify-around rounded-lg border-2 drop-shadow-lg">
@@ -8,7 +10,7 @@ export function Login(){
                 <Input>Username</Input>
                 <Input>Password</Input>
                 <div className="flex justify-center w-full">
-                    <Button onclick={handleLogin}>Login</Button>
+                    <Button updateUsername={setUsername} navigate={navigate}>Login</Button>
                 </div>
             </div>
         </div>
@@ -24,13 +26,15 @@ function Input({type, children}){
     )
 } 
 
-function Button({children, onclick}){
+function Button({children, updateUsername, navigate}){
     return(
-        <button onClick={onclick} className="py-1 border-2 bg-slate-400 text-white px-8 rounded-md  active:bg-slate-500 active:ring-1">{children}</button>
+        <button onClick={async ()=>{
+            await handleLogin(updateUsername, navigate);
+        }} className="py-1 border-2 bg-slate-400 text-white px-8 rounded-md  active:bg-slate-500 active:ring-1">{children}</button>
     );
 }
 
-async function handleLogin(){
+async function handleLogin(updateUsername, navigate){
     const response = await axios.post("http://localhost:3000/todos/login", {
         username : document.getElementById("Username").value,
         password : document.getElementById("Password").value
@@ -38,5 +42,6 @@ async function handleLogin(){
 
     alert(response.data.message);
     localStorage.setItem("token", response.data.token);
-    window.location = "/";
+    updateUsername(document.getElementById("Username").value);
+    navigate("/alltodos");  // avoid using window.location to move to different paths, because it resets react state. so updateUsername will not be useful.
 }

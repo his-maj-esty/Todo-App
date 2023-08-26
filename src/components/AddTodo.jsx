@@ -27,7 +27,7 @@ export function AddTodo()
       </div>
       <button
         onClick={addTodo}
-        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:ring focus:ring-red-300"
+        className="py-1 border-2 bg-slate-400 text-white px-8 rounded-md  active:bg-slate-500 active:ring-1"
       >Add</button>
     </div>
 )}

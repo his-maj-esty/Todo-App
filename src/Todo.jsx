@@ -15,9 +15,7 @@ export function Todos() {
               "Authorization" : "Bearer " + localStorage.token
             }
           });
-
           setTodos(response.data.todos);
-          console.log(todos);
       }
       catch(err){
         console.log(err);
@@ -45,13 +43,13 @@ export function Todos() {
             <button onClick={() => {
               updateTodo(todo._id);
               setIsToggle(prev => !prev);
-            }} className=' bg-red-500 text-white px-2 py-1 rounded-md'>Update</button>
+            }} className="py-1 border-2 bg-slate-400 text-white px-8 rounded-md  active:bg-slate-500 active:ring-1">Update</button>
           ) : (
-            <button onClick={() => setIsToggle(prev => !prev)} className=' bg-red-500 text-white px-2 py-1 rounded-md'>Edit</button>
+            <button onClick={() => setIsToggle(prev => !prev)} className="py-1 border-2 bg-slate-400 text-white px-8 rounded-md  active:bg-slate-500 active:ring-1">Edit</button>
           )}
           <button onClick={() => {
             deleteTodo(todo._id);
-          }} className=' bg-red-500 text-white px-2 py-1 rounded-md'>Delete</button>
+          }} className="py-1 border-2 bg-slate-400 text-white px-8 rounded-md  active:bg-slate-500 active:ring-1">Delete</button>
         </div>
       </div>
       ))

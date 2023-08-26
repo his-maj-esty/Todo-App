@@ -16,12 +16,11 @@ export async function Authentication(req, res, next){
             next();
         }
         else{
-            res.status(401).send({message: "User not found"});
+            res.status(404).send({message: "User not found"});
         }
     }
     catch(err){
-        alert("invalid user. login again");
-        window.location = "/";
+        res.status(400).send({message:"login again. token expired"});
     }
 }
 
