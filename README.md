@@ -6,6 +6,7 @@ TaskMinder is a task management application built using React and Express. It al
 ## Features
 
 - User registration and login with authentication.
+- User remain login for 1 hour
 - Landing page showcasing the benefits of the app.
 - Todo management for creating, updating, and deleting tasks.
 - Backend API endpoints for handling user authentication and todo operations.
@@ -54,13 +55,13 @@ npm install
 ### API
 The backend API provides the following endpoints:
 
-POST /todos/login: User login with authentication.
-POST /todos/signup: User registration.
-GET /todos/alltodos: Get all todos for an authenticated user.
-GET /todos/:id: Get a specific todo by ID.
-POST /todos/addtodo: Add a new todo.
-PUT /todos/:id: Update an existing todo.
-DELETE /todos/:id: Delete a todo.
+- POST /todos/login: User login with authentication.
+- POST /todos/signup: User registration.
+- GET /todos/alltodos: Get all todos for an authenticated user.
+- GET /todos/:id : Get a specific todo by ID.
+- POST /todos/addtodo: Add a new todo.
+- PUT /todos/:id : Update an existing todo.
+- DELETE /todos/:id : Delete a todo.
 Refer to the API code for more details on request payloads and responses.
 
 
