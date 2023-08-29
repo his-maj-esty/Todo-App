@@ -5,7 +5,7 @@ export function Signup({setUsername}){
     const navigate = useNavigate();
     return(
         <div className="h-screen w-screen flex justify-center items-center">
-            <div className="flex flex-col h-52 w-80 justify-around rounded-lg border-2 drop-shadow-lg">
+            <div className="flex flex-col h-52 w-80 justify-around rounded-lg drop-shadow-lg">
                 <h1 className="text-3xl font-bold text-center">Signup</h1>
                 <Input>Username</Input>
                 <Input>Password</Input>
@@ -48,7 +48,6 @@ async function handleSignup(navigate,updateUsername){
         navigate("/alltodos");
     }
     catch(err){
-        console.log(err);
-        alert("Error occured");
+        alert(err.response.data.message);
     }
 }

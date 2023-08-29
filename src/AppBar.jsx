@@ -3,14 +3,18 @@ import { useNavigate } from "react-router-dom";
 export function AppBar({username, setUsername}){
     const navigate =  useNavigate();
     return(
-        <div className="flex justify-between items-center px-4 h-14 w-full bg-slate-200 top-0 m-0">
+        <div className="flex justify-between items-center px-4 h-14 w-full bg-slate-400 top-0 m-0">
             { username?
                 (<div className="space-x-2">
-                    <Button onclick={() => navigate("/")}>Home</Button>
+                    <Button onclick={()=> navigate("/")} className="font-bold text-2xl text-white p-10">
+                        TaskMinder.
+                    </Button>                    
                     <Button onclick={() => navigate("/alltodos")}>Your Todos</Button>
                 </div>):
                 (<div>
-                    Todos
+                    <Button onclick={() => navigate("/")} className="font-bold text-2xl text-white p-10">
+                        TaskMinder.
+                    </Button>                
                 </div>
                 )
             }

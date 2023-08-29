@@ -5,7 +5,7 @@ export function Login({setUsername}){
     const navigate = useNavigate();
     return(
         <div className="h-screen w-screen flex justify-center items-center">
-            <div className="flex flex-col h-52 w-80 justify-around rounded-lg border-2 drop-shadow-lg">
+            <div className="flex flex-col h-60 w-96 justify-around rounded-lg  drop-shadow-lg">
                 <h1 className="text-3xl font-bold text-center">Login</h1>
                 <Input>Username</Input>
                 <Input>Password</Input>
@@ -35,13 +35,20 @@ function Button({children, updateUsername, navigate}){
 }
 
 async function handleLogin(updateUsername, navigate){
-    const response = await axios.post("http://localhost:3000/todos/login", {
-        username : document.getElementById("Username").value,
-        password : document.getElementById("Password").value
-    });
+    try{
+        const response = await axios.post("http://localhost:3000/todos/login", {
+            username : document.getElementById("Username").value,
+            password : document.getElementById("Password").value
+        });
 
-    alert(response.data.message);
-    localStorage.setItem("token", response.data.token);
-    updateUsername(document.getElementById("Username").value);
-    navigate("/alltodos");  // avoid using window.location to move to different paths, because it resets react state. so updateUsername will not be useful.
+        alert(response.data.message);
+        localStorage.setItem("token", response.data.token);
+        updateUsername(document.getElementById("Username").value);
+        navigate("/alltodos");  // avoid using window.location to move to different paths, because it resets react state. so updateUsername will not be useful.
+    }
+
+    catch(err){
+        alert(err.response.data.message);
+    }
 }
+
