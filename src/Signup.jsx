@@ -8,7 +8,7 @@ export function Signup({setUsername}){
             <div className="flex flex-col h-52 w-80 justify-around rounded-lg drop-shadow-lg">
                 <h1 className="text-3xl font-bold text-center">Signup</h1>
                 <Input>Username</Input>
-                <Input>Password</Input>
+                <Input type={"password"}>Password</Input>
                 <div className="flex justify-center w-full">
                     <Button updateUsername={setUsername} navigate={navigate}>Signup</Button>
                 </div>
@@ -21,10 +21,10 @@ function Input({type, children}){
     return(
         <div className="flex w-72 justify-between border-slate-500 ">
             <label className="font-bold text-slate-800" for={children}>{children}</label>
-            <input className="h-7 bg-slate-300 rounded-md focus:border-slate-400 focus:bg-white" type={type} id={children} />
+            <input type={type} className="p-2 h-7 bg-slate-300 rounded-md focus:border-purple-400 focus:bg-white" type={type} id={children} />
         </div>
     )
-}
+} 
 
 function Button({children, updateUsername, navigate}){
     return(
